@@ -44,3 +44,40 @@ st.write("hopefully the outliers are gone by now")
 
 df["sepal_width"] = df["sepal_width"].clip(lower=lower, upper=upper)
 
+st.write("Data Analysis")
+
+fig, ax= plt.subplots()
+sns.histplot(x='sepal_length', y='petal_width',
+data=df)
+st.pyplot(fig)
+
+
+
+from sklearn.model_selection import train_test_split
+
+X=df[['sepal_length','sepal_width','petal_length','petal_width']]
+y=df['species']
+
+X_train,X_test,y_train,y_test=train_test_split(X,y, test_size=0.2, random_state=42)
+
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+
+encoder = LabelEncoder()
+
+y_train = encoder.fit_transform(y_train)
+y_test = encoder.transform(y_test)
+
+scaler = StandardScaler()
+
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+from sklearn.ensemble import RandomForestClassifier
+rfc=RandomForestClassifier()
+rfc.fit(X_train, y_train)
+y_pred=rfc.predict(X_test)
+
+from sklearn.metrics import accuracy_score
+accuracy=accuracy_score(y_test,y_pred)
+total_accuracy_score=accuracy
+st.write("model is now encoded, scaled, imputed, and random forest is put on the cleaned preprocessed dataset. total accuracy score is: ",total_accuracy_score)
