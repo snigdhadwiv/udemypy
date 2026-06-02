@@ -81,3 +81,33 @@ from sklearn.metrics import accuracy_score
 accuracy=accuracy_score(y_test,y_pred)
 total_accuracy_score=accuracy
 st.write("model is now encoded, scaled, imputed, and random forest is put on the cleaned preprocessed dataset. total accuracy score is: ",total_accuracy_score)
+
+st.sidebar_header("wanna predict?")
+sepal_length=st.sidebar(
+    "Sepal Length", float(df['sepal_length']).min(),
+    float(df['sepal_length']).max(),
+    float(df['sepal_length']).mean(),
+)
+petal_length=st.sidebar(
+    "Petal Length", float(df['petal_length']).min(),
+    float(df['petal_length']).max(),
+    float(df['petal_length']).mean(),
+)
+sepal_width=st.sidebar(
+    "Sepal Width", float(df['sepal_width']).min(),
+    float(df['sepal_width']).max(),
+    float(df['sepal_width']).mean(),
+)
+petal_width=st.sidebar(
+    "Petal Width", float(df['petal_width']).min(),
+    float(df['petal_width']).max(),
+    float(df['petal_width']).mean(),
+)
+input_data = pd.DataFrame({ "sepal_length": [sepal_length], "sepal_width": [sepal_width], "petal_length": [petal_length], "petal_width": [petal_width] }) 
+st.subheader("Current Input") 
+st.write(input_data) 
+# ========================= # PREDICTION # ========================= 
+if st.button("Predict Species"): input_scaled = scaler.transform(input_data) 
+prediction = rfc.predict(input_scaled) 
+predicted_species = encoder.inverse_transform( prediction ) 
+st.success( f"Predicted Species: {predicted_species[0]}" )
