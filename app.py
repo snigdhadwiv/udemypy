@@ -18,4 +18,6 @@ age=st.slider("how old r u monke: ", 0,100,50)
 st.write(f"you are {age} years old which makes you qualified to be sniggy's besto FRIENDO")
 st.image('besto_friendo.jfif')
 
+df=pd.DataFrame({"name":["mumma","papa","somu"],"age":["50","53","22"]})
+st.write(df)
 
