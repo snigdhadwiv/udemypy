@@ -82,7 +82,7 @@ accuracy=accuracy_score(y_test,y_pred)
 total_accuracy_score=accuracy
 st.write("model is now encoded, scaled, imputed, and random forest is put on the cleaned preprocessed dataset. total accuracy score is: ",total_accuracy_score)
 
-st.sidebar_header("wanna predict?")
+st.sidebar.header("wanna predict?")
 sepal_length=st.sidebar(
     "Sepal Length", float(df['sepal_length']).min(),
     float(df['sepal_length']).max(),
